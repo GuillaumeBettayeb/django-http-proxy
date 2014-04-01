@@ -1,7 +1,7 @@
 import logging
 
 from django.http import HttpResponse
-from django.utils.hashcompat import md5_constructor
+import hashlib
 
 from httpproxy import settings
 from httpproxy.exceptions import RequestNotRecorded, ResponseUnsupported
@@ -141,5 +141,6 @@ class ProxyRecorder(object):
         Returns an MD5 has of the request's query parameters.
         """
         querystring = request.GET.urlencode()
-        return md5_constructor(querystring).hexdigest()
+        return hashlib.md5(querystring).hexdigest()
 
+ 

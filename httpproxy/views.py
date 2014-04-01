@@ -1,7 +1,7 @@
 import logging
 import urllib2
 from urlparse import urlparse
-
+from django.conf import settings
 from django.http import HttpResponse
 from django.views.generic import View
 
@@ -10,10 +10,11 @@ from httpproxy.recorder import ProxyRecorder
 
 logger = logging.getLogger(__name__)
 
+
 class HttpProxy(View):
 
     mode = None
-    base_url = None
+    base_url = "http://"+settings.PROXY_DOMAIN
     msg = 'Response body: \n%s'
 
     def dispatch(self, request, url, *args, **kwargs):
@@ -87,3 +88,5 @@ class HttpProxy(View):
         request = urllib2.Request(url, body, headers)
         logger.info('%s %s' % (request.get_method(), request.get_full_url()))
         return request
+
+proxy = HttpProxy.as_view()
