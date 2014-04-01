@@ -1,7 +1,14 @@
 from urllib import urlencode
 
 from django.db import models
-from django.utils.text import truncate_words
+try:
+    from django.utils.text import Truncator
+except ImportError:
+    from django.utils.text import truncate_words # Django < 1.4
+else:
+    def truncate_words(s, num, end_text='...'):
+        end_text = ' {0}'.format(end_text) if end_text else ''
+        return Truncator(s).words(num, truncate=end_text)
 from django.utils.translation import ugettext as _
 
 
@@ -34,7 +41,7 @@ class Request(models.Model):
 
     class Meta:
         verbose_name = _('request')
-        verbose_name_plural = _('requests')
+        verbose_name_plural = _('responses')
         unique_together = ('method', 'domain', 'port', 'path', 'querykey')
         get_latest_by = 'date'
 
