@@ -3,11 +3,11 @@ from distutils.core import setup
 from httpproxy import __version__
 
 setup(
-    name='django-http-proxy',
+    name='mini-django-http-proxy',
     version=__version__,
     description='A simple HTTP proxy for the Django framework.',
-    url='https://github.com/beck/django-http-proxy',
-    author='Yuri van der Meer',
+    url='https://github.com/TwigWorld/django-http-proxy',
+    author='Yuri van der Meer, Raymond McGinlay',
     author_email='django-http-proxy@yvandermeer.net',
     packages=['httpproxy'],
     classifiers=[
