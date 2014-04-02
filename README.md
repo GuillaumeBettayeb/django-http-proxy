@@ -1,14 +1,21 @@
-Django HTTP Proxy
+Mini Django HTTP Proxy
 =================
 
-Thanks for downloading Django HTTP Proxy!
-
-Documention is provided in Sphinx format in the ``docs`` subdirectory. To
-build the HTML version of the documentation yourself, run::
-
-    $ cd docs
-    $ make html
-
-Alternatively, you can browse the documentation online:
-
+A stripped down and updated for django 1.6 version of django-http-proxy.
 http://httpproxy.yvandermeer.net/
+
+pip install and add to installed apps::
+
+    INSTALLED_APPS = ('httpproxy', 
+                          ...)
+
+add proxy domain and optionally cache timeout to settings (default cache timeout is 60 seconds)::
+
+    PROXY_DOMAIN = 'google.com'
+    PROXY_CACHE_TIMEOUT = 120
+
+Then make a url in urls.py that will forward requests::
+
+    url(r'^my-google/(?P<url>.*)$', 'httpproxy.views.proxy'),
+
+
