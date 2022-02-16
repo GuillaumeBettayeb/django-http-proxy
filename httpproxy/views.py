@@ -1,10 +1,11 @@
 import logging
-import urllib2
-from httpproxy import settings
-from django.http import HttpResponse
-from django.views.generic import View
-from django.views.decorators.cache import cache_page
 
+import urllib2
+from django.http import HttpResponse
+from django.views.decorators.cache import cache_page
+from django.views.generic import View
+
+from httpproxy import settings
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +22,6 @@ class CacheMixin(object):
 
 
 class HttpProxy(View):
-
     mode = None
     base_url = "http://" + settings.PROXY_DOMAIN
     msg = 'Response body: \n%s'
@@ -61,7 +61,7 @@ class HttpProxy(View):
             response_body = response.read()
             status = response.getcode()
             logger.debug(self.msg % response_body)
-        except urllib2.HTTPError, e:
+        except urllib2.HTTPError as e:
             response_body = e.read()
             logger.error(self.msg % response_body)
             status = e.code
@@ -81,5 +81,6 @@ class HttpProxy(View):
         request = urllib2.Request(url, body, headers)
         logger.info('%s %s' % (request.get_method(), request.get_full_url()))
         return request
+
 
 proxy = HttpProxy.as_view()
