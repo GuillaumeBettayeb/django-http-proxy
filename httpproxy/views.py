@@ -1,6 +1,6 @@
 import logging
+import urllib.request as urllib2
 
-import urllib2
 from django.http import HttpResponse
 from django.views.decorators.cache import cache_page
 from django.views.generic import View
