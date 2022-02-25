@@ -1,4 +1,5 @@
 import logging
+import urllib.error
 import urllib.request as urllib2
 
 from django.http import HttpResponse
@@ -61,7 +62,7 @@ class HttpProxy(View):
             response_body = response.read()
             status = response.getcode()
             logger.debug(self.msg % response_body)
-        except urllib2.HTTPError as e:
+        except urllib.error.HTTPError as e:
             response_body = e.read()
             logger.error(self.msg % response_body)
             status = e.code
